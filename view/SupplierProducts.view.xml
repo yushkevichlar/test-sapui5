@@ -1,0 +1,93 @@
+<mvc:View
+	controllerName="suppliers.app.controller.SupplierProducts"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+
+    <Breadcrumbs class="sapUiSmallMargin">
+        <Link text="Suppliers list" press="onNavBack"/>
+        <Link text="Supplier products" />
+    </Breadcrumbs>
+	<Page
+		id="page"
+		title="Supplier Products ({odata>Name})">
+		<content>
+            <Table id="ProductsTable" sticky="ColumnHeaders" items="{odata>Products}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Products"/>
+                        <ToolbarSpacer />
+                        <SearchField width="20%" placeholder="Enter value to search" search=".onSearchProduct" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column width="15%">
+                        <HBox>
+                            <Text text="Name" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>                    
+                    <Column width="20%">
+                        <HBox>
+                            <Text text="Description" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>
+                    <Column width="15%" hAlign="Center">
+                        <HBox>
+                            <Text text="Release Date" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>
+                    <Column width="15%">
+                        <HBox>
+                            <Text text="Discontinued Date" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>
+                    <Column width="10%" hAlign="Center">
+                        <HBox>
+                            <Text text="Rating" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>                   
+                    <Column width="10%" hAlign="Center">
+                        <HBox>
+                            <Text text="Price" class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+                        </HBox>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <ObjectIdentifier title="{odata>Name}"/>
+                        <VBox class="sapUiSmallMarginBegin">
+                            <Text text="{odata>Description}" maxLines="2" tooltip="{odata>Description}"/>
+                        </VBox>
+                        <VBox>
+                            <ObjectAttribute text="{
+                                path: 'odata>ReleaseDate',
+                                type: 'sap.ui.model.type.Date',
+                                formatOptions: {style: 'medium'}
+                            }"/>
+                        </VBox>
+                        <VBox>
+                            <ObjectAttribute text="{
+                                path: 'odata>DiscontinuedDate',
+                                type: 'sap.ui.model.type.Date',
+                                formatOptions: {style: 'medium'}
+                            }"/>
+                        </VBox>
+                        <VBox>
+                            <RatingIndicator enabled= "false" class="sapUiSmallMarginBottom" value="{odata>Rating}" iconSize="16px" tooltip="Rating" />
+                        </VBox>
+                        <VBox>
+                            <Text text="{odata>Price}"/>
+                        </VBox>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button id="addProductButton" class="sapUiTinyMarginEnd" icon="sap-icon://add" text="Create" type="Ghost" press=".onCreateProductPress"/>
+            </OverflowToolbar>
+        </footer>
+	</Page>
+</mvc:View>

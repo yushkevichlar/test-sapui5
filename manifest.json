@@ -1,0 +1,103 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "suppliers.app",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "https://cors-anywhere.herokuapp.com/https://services.odata.org/V2/(S(4ugnb2lmuc1yyokw51m5gogn))/OData/OData.svc",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_fiori_3"]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": "suppliers.app.view.App",
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "suppliers.app.view",
+				"controlId": "RootApp",
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": ["notFound"]
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "FirstPage",
+					"target": ["firstPage"]
+				},
+				{
+					"pattern": "SupplierProducts/{supplierId}",
+					"name": "SupplierProducts",
+					"target": ["supplierProducts"]
+				}
+			],
+
+			"targets": {
+				"firstPage": {
+					"viewName": "FirstPage",
+					"viewId": "firstPage",
+					"viewLevel": 1
+				},
+				"supplierProducts": {
+					"viewName": "SupplierProducts",
+					"viewId": "supplierProducts",
+					"viewLevel": 2,
+					"title": "{i18n>title}"
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewId": "notFound"
+				}
+			}
+		},
+		"dependencies": {
+			"minUI5Version": "1.44.19",
+			"libs": {
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"odata": {
+				"dataSource": "mainService",
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"useBatch": false,
+					"disableHeadRequestForToken": true
+				}
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "suppliers.app.i18n.i18n"
+				}
+			}
+		}
+	}
+}
